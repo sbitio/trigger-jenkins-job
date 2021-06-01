@@ -18,7 +18,7 @@ runs:
   using: 'docker'
   image: 'docker://registry.gitlab.com/sbitio/gitlab-ci:latest'
   env:
-    JENKINS_USER: ${{ inputs.JENKINS_USER }}
-    JENKINS_TOKEN: ${{ inputs.JENKINS_TOKEN }}
+    JENKINS_USER: ${{ env.INPUT_JENKINS_USER }}
+    JENKINS_TOKEN: ${{ env.INPUT_JENKINS_TOKEN }}
   args:
-    - "-h {{ inputs.JENKINS_HOST }} -j {{ inputs.JENKINS_JOB }}"
+    - "-h {{ env.INPUT_JENKINS_HOST }} -j {{ env.INPUT_JENKINS_JOB }}"
