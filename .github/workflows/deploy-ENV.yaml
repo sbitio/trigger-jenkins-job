@@ -1,0 +1,37 @@
+## Github actions to execute jobs based on branch
+
+name: deploy_ENV
+
+on:
+  push:
+    branches:
+      - dev
+      - production
+
+jobs:
+  launch_jenkins_deploy:
+    name: Launch jenkins deploy-ENV job
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Decide Jenkins job to run
+        uses: kanga333/variable-mapper@master
+        with:
+          key: ${{ github.ref }}
+          map: |
+            {
+              "dev": {
+                "JENKINS_JOB": "${{ secrets.JENKINS_JOB_DEV }}"
+              },
+              "production": {
+                "JENKINS_JOB": "${{ secrets.JENKINS_JOB_STG }}"
+              }
+            }
+      -
+        name: Trigger Jenkins Job
+        uses: ../../action.yaml
+        with:
+          JENKINS_USER: ${{ secrets.JENKINS_USER }}
+          JENKINS_TOKEN: ${{ secrets.JENKINS_TOKEN }}
+          JENKINS_HOST: ${{ secrets.JENKINS_HOST }}
+          JENKINS_JOB: ${{ env.JENKINS_JOB }}

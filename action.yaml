@@ -1,0 +1,24 @@
+name: 'Trigger a Jenkins Job'
+author: 'sbitio'
+inputs:
+  JENKINS_USER:
+    description: 'Jenkins user that will trigger the job'
+    required: true
+  JENKINS_TOKEN:
+    description: 'Jenkins token used for verification'
+    required: true
+  JENKINS_HOST:
+    description: 'Jenkins host where the jobs will be run'
+    required: true
+  JENKINS_JOB:
+    description: 'Jenkins job to be built'
+    required: true
+
+runs:
+  using: 'docker'
+  image: 'docker://registry.gitlab.com/sbitio/gitlab-ci:latest'
+  env:
+    JENKINS_USER: ${{ inputs.JENKINS_USER }}
+    JENKINS_TOKEN: ${{ inputs.JENKINS_TOKEN }}
+  args:
+    - "-h {{ inputs.JENKINS_HOST }} -j {{ inputs.JENKINS_JOB }}"
