@@ -1,21 +1,43 @@
-# GITHUB-CI
+# Trigger jenkins job action
 
-Templates and examples for Github-CI
+This action triggers a given Jenkins job when called
 
-## Content
+## Inputs
 
-### Examples
+### 'JENKINS_USER'
 
-* `examples/jenkins/.github/workflows/deploy-ENV.yaml`: Github Actions to build Jenkins jobs
+**Required** The name of the jenkins user that will trigger the Jenkins job (The user must have the neccessary permissions)
 
----
+### 'JENKINS_TOKEN'
 
-### Using Github Actions to trigger the Jenkins jobs `deploy_devel` and `deploy_staging`
-### Instructions
+**Required** Jenkins API token. Follow these instructions to generate a token for the jenkins user that will trigger the job: https://www.jenkins.io/blog/2018/07/02/new-api-token-system/
 
-1. Copy and paste the `.github` folder inside `examples/jenkins` to your repository and create the `dev` and `production` branches if they do not exist.
-2. In your github repo, access `Action secrets` (Secrets) in Settings, and create 5 new repository secrets: `JENKINS_USER`, `JENKINS_TOKEN`, `JENKINS_HOST`, `JENKINS_JOB_DEV` and `JENKINS_JOB_STG`
-  * To generate a `JENKINS_TOKEN` follow these instructions: https://www.jenkins.io/blog/2018/07/02/new-api-token-system/
-  * The value of `JENKINS_USER` must be the same as the user who generated the `JENKINS_TOKEN`
-  * `JENKINS_HOST` is the host of the Jenkins instance where the jobs will be built
-  * `JENKINS_JOB_ENV` is the Jenkins route to the job
+### 'JENKINS_HOST'
+
+**Required** Jenkins base url.
+
+### 'JENKINS_JOB'
+
+**Required** Jenkins job location that will be built. Ex: `JENKINS_JOB = utils/testPipeline/helloWorld` makes reference to the `helloWorld` job inside the `utils/testPipeline/` directory.
+
+## Example usage
+
+```yaml
+name: Trigger jenkins job
+
+on: push
+
+jobs:
+  launch_jenkins_deploy:
+    name: Launch jenkins deploy-ENV job
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Trigger Jenkins Job
+        uses: sbitio/trigger-jenkins-job@master
+        with:
+          JENKINS_USER: ${{ secrets.JENKINS_USER }}
+          JENKINS_TOKEN: ${{ secrets.JENKINS_TOKEN }}
+          JENKINS_HOST: ${{ secrets.JENKINS_HOST }}
+          JENKINS_JOB: ${{ secrets.JENKINS_JOB }}
+```

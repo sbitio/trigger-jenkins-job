@@ -1,11 +1,9 @@
-## Github actions to execute jobs based on branch
-
-name: deploy_ENV
+name: Trigger jenkins job
 
 on: push
 
 jobs:
-  launch_jenkins_deploy:
+  launch_jenkins_job:
     name: Launch jenkins deploy-ENV job
     runs-on: ubuntu-latest
     steps:
