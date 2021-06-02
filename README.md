@@ -22,6 +22,8 @@ This action triggers a given Jenkins job when called
 
 ## Example usage
 
+Example usage of the action. This workflow triggers a Jenkins job  when a change is pushed to the repository.
+
 ```yaml
 name: Trigger jenkins job
 
