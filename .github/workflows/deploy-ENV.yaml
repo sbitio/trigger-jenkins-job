@@ -15,3 +15,4 @@ jobs:
           JENKINS_TOKEN: ${{ secrets.JENKINS_TOKEN }}
           JENKINS_HOST: ${{ secrets.JENKINS_HOST }}
           JENKINS_JOB: ${{ secrets.JENKINS_JOB }}
+          JENKINS_PARAMS: environment=dev

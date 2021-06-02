@@ -13,6 +13,8 @@ inputs:
   JENKINS_JOB:
     description: 'Jenkins job to be built'
     required: true
+  JENKINS_PARAMS:
+    description: 'Jenkins job parameters'
 
 runs:
   using: 'docker'
@@ -25,3 +27,5 @@ runs:
     - ${{ inputs.JENKINS_HOST }}
     - -j
     - ${{ inputs.JENKINS_JOB }}
+    - -p
+    - ${{ inputs.JENKINS_PARAMS }}
