@@ -20,7 +20,7 @@ This action triggers a given Jenkins job when called
 
 **Required** Jenkins job location that will be built. Ex: `JENKINS_JOB = utils/testPipeline/helloWorld` makes reference to the `helloWorld` job inside the `utils/testPipeline/` directory.
 
-### 'JENKINS_JOB'
+### 'JENKINS_PARAMS'
 
 **Optional** Parameters to be passed to the jenkins jobs if they are required. they must be written in this format: `param=value`. If there is more than one parameter, they must be sparated by `&` (Example: `param1=value1&param2=value2` )
 
