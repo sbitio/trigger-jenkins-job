@@ -28,8 +28,8 @@ name: Trigger jenkins job
 on: push
 
 jobs:
-  launch_jenkins_deploy:
-    name: Launch jenkins deploy-ENV job
+  launch_jenkins_job:
+    name: trigger jenkins job
     runs-on: ubuntu-latest
     steps:
       -

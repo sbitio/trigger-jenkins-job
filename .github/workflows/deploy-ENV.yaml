@@ -4,7 +4,7 @@ on: push
 
 jobs:
   launch_jenkins_job:
-    name: Launch jenkins deploy-ENV job
+    name: trigger jenkins job
     runs-on: ubuntu-latest
     steps:
       -
