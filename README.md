@@ -20,13 +20,15 @@ This action triggers a given Jenkins job when called
 
 **Required** Jenkins job location that will be built. Ex: `JENKINS_JOB = utils/testPipeline/helloWorld` makes reference to the `helloWorld` job inside the `utils/testPipeline/` directory.
 
+### 'JENKINS_JOB'
+
+**Optional** Parameters to be passed to the jenkins jobs if they are required. they must be written in this format: `param=value`. If there is more than one parameter, they must be sparated by `&` (Example: `param1=value1&param2=value2` )
+
 ## Example usage
 
 Example usage of the action. This workflow triggers a Jenkins job  when a change is pushed to the repository.
 
 ```yaml
-name: Trigger jenkins job
-
 on: push
 
 jobs:
@@ -42,4 +44,27 @@ jobs:
           JENKINS_TOKEN: ${{ secrets.JENKINS_TOKEN }}
           JENKINS_HOST: ${{ secrets.JENKINS_HOST }}
           JENKINS_JOB: ${{ secrets.JENKINS_JOB }}
+```
+
+---
+
+Example usage of the action to trigger a parametized job.
+
+```yaml
+on: push
+
+jobs:
+  launch_jenkins_job:
+    name: trigger jenkins job
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Trigger Jenkins Job
+        uses: sbitio/trigger-jenkins-job@master
+        with:
+          JENKINS_USER: ${{ secrets.JENKINS_USER }}
+          JENKINS_TOKEN: ${{ secrets.JENKINS_TOKEN }}
+          JENKINS_HOST: ${{ secrets.JENKINS_HOST }}
+          JENKINS_JOB: ${{ secrets.JENKINS_JOB }}
+          JENKINS_PARAMS: environment=dev
 ```
