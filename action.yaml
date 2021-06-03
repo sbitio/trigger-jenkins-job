@@ -1,5 +1,6 @@
-name: 'Trigger a Jenkins Job'
+name: 'Trigger Jenkins Job'
 author: 'sbitio'
+dscription: 'GitHub action that triggers a Jenkins Job'
 inputs:
   JENKINS_USER:
     description: 'Jenkins user that will trigger the job'
@@ -29,3 +30,7 @@ runs:
     - ${{ inputs.JENKINS_JOB }}
     - -p
     - ${{ inputs.JENKINS_PARAMS }}
+
+branding:
+  icon: 'sun'
+  color: 'white'
