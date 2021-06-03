@@ -2,6 +2,11 @@ name: Trigger jenkins job
 
 on: push
 
+env:
+  JENKINS_HOST: https://jenkins.example.com ## jenkins base url
+  JENKINS_JOB: testJobs/HelloWorld ## builds the HelloWorld job inside testJobs
+  JENKINS_PARAMS: environment=dev
+
 jobs:
   launch_jenkins_job:
     name: trigger jenkins job
@@ -13,6 +18,6 @@ jobs:
         with:
           JENKINS_USER: ${{ secrets.JENKINS_USER }}
           JENKINS_TOKEN: ${{ secrets.JENKINS_TOKEN }}
-          JENKINS_HOST: ${{ secrets.JENKINS_HOST }}
-          JENKINS_JOB: ${{ secrets.JENKINS_JOB }}
-          JENKINS_PARAMS: environment=dev
+          JENKINS_HOST: ${{ env.JENKINS_HOST }}
+          JENKINS_JOB: ${{ env.JENKINS_JOB }}
+          JENKINS_PARAMS: ${{ env.JENKINS_PARAMS }}

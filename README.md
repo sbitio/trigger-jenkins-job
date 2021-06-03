@@ -6,11 +6,14 @@ This action triggers a given Jenkins job when called
 
 ### 'JENKINS_USER'
 
-**Required** The name of the jenkins user that will trigger the Jenkins job (The user must have the neccessary permissions)
+**Required** The name of the jenkins user that will trigger the Jenkins job (The user must have the neccessary permissions).
 
 ### 'JENKINS_TOKEN'
 
-**Required** Jenkins API token. Follow these instructions to generate a token for the jenkins user that will trigger the job: https://www.jenkins.io/blog/2018/07/02/new-api-token-system/
+**Required** Jenkins API token. Follow these instructions to generate a token for the jenkins user that will trigger the job: https://www.jenkins.io/blog/2018/07/02/new-api-token-system/.
+
+
+**Important** `JENKINS_USER` and `JENKINS_TOKEN` should be declared in repository secrets for security purposes. The rest of the variables can be declared as envs.
 
 ### 'JENKINS_HOST'
 
@@ -53,6 +56,11 @@ Example usage of the action to trigger a parametized job.
 ```yaml
 on: push
 
+env:
+  JENKINS_HOST: https://jenkins.example.com/ ## jenkins base url
+  JENKINS_JOB: testJobs/HelloWorld ## builds the HelloWorld job inside testJobs
+  JENKINS_PARAMS: environment=dev
+
 jobs:
   launch_jenkins_job:
     name: trigger jenkins job
@@ -64,7 +72,7 @@ jobs:
         with:
           JENKINS_USER: ${{ secrets.JENKINS_USER }}
           JENKINS_TOKEN: ${{ secrets.JENKINS_TOKEN }}
-          JENKINS_HOST: ${{ secrets.JENKINS_HOST }}
-          JENKINS_JOB: ${{ secrets.JENKINS_JOB }}
-          JENKINS_PARAMS: environment=dev
+          JENKINS_HOST: ${{ env.JENKINS_HOST }}
+          JENKINS_JOB: ${{ env.JENKINS_JOB }}
+          JENKINS_PARAMS: ${{ env.JENKINS_PARAMS }}
 ```
