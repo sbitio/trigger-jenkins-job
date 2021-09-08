@@ -25,7 +25,8 @@ This action triggers a given Jenkins job when called
 
 ### 'JENKINS_PARAMS'
 
-**Optional** Parameters to be passed to the jenkins jobs if they are required. they must be written in this format: `param=value`. If there is more than one parameter, they must be sparated by `&` (Example: `param1=value1&param2=value2` )
+**Optional** Parameters to be passed to the jenkins jobs if they are required. they must be written in this format: `param=value`. If there is more than one parameter, they must be sparated by `&` (Example: `param1=value1&param2=value2` ).
+If the job has no defined parameters then `JENKINS_PARAMS` must be given the value `no`, and if the job does have parameters but you want to use the default values then the input can be left empty.
 
 ## Example usage
 
@@ -60,6 +61,31 @@ env:
   JENKINS_HOST: https://jenkins.example.com/ ## jenkins base url
   JENKINS_JOB: testJobs/HelloWorld ## builds the HelloWorld job inside testJobs
   JENKINS_PARAMS: environment=dev
+
+jobs:
+  launch_jenkins_job:
+    name: trigger jenkins job
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Trigger Jenkins Job
+        uses: sbitio/trigger-jenkins-job@master
+        with:
+          JENKINS_USER: ${{ secrets.JENKINS_USER }}
+          JENKINS_TOKEN: ${{ secrets.JENKINS_TOKEN }}
+          JENKINS_HOST: ${{ env.JENKINS_HOST }}
+          JENKINS_JOB: ${{ env.JENKINS_JOB }}
+          JENKINS_PARAMS: ${{ env.JENKINS_PARAMS }}
+```
+
+Example usage of the action to trigger a unparametized job.
+```yaml
+on: push
+
+env:
+  JENKINS_HOST: https://jenkins.example.com/ ## jenkins base url
+  JENKINS_JOB: testJobs/HelloWorld ## builds the HelloWorld job inside testJobs
+  JENKINS_PARAMS: no
 
 jobs:
   launch_jenkins_job:
