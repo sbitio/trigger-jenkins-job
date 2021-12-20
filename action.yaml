@@ -19,7 +19,7 @@ inputs:
 
 runs:
   using: 'docker'
-  image: 'docker://registry.gitlab.com/sbitio/gitlab-ci:latest'
+  image: 'docker://registry.gitlab.com/sbitio/gitlab-ci:v1'
   env:
     JENKINS_USER: ${{ inputs.JENKINS_USER }}
     JENKINS_TOKEN: ${{ inputs.JENKINS_TOKEN }}
